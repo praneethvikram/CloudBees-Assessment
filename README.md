@@ -1,7 +1,6 @@
 # CloudBees-Assessment
 
 This is a ticket booking service built using Java. It allows users to book, cancel, and manage train tickets. 
-The service is defined using Protocol Buffers and runs on a gRPC server.
 
 Features
 
