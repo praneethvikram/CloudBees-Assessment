@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CloudbeesApplication {
+public class CloudBeesApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CloudbeesApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CloudBeesApplication.class, args);
+    }
 
 }
