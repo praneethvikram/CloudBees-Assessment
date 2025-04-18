@@ -14,5 +14,5 @@ train details: Get all train details
 
 seat details : Get all seat details per train + section
 
-along wit above features , it also supports crud operations on users.
+along with above features , it also supports crud operations on users.
 
