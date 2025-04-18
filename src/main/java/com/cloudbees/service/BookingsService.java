@@ -1,15 +1,15 @@
 package com.cloudbees.service;
 
-import com.cloudbees.model.Bookings;
+import com.cloudbees.model.Booking;
 
 import java.util.List;
 
 public interface BookingsService {
-    Bookings createTicket(Bookings bookings, String userName);
+    Booking createTicket(Booking booking, String userName);
 
-    List<Bookings> getAllBookings();
+    List<Booking> getAllBookings();
 
-    Bookings getTicketDetails(String userName);
+    List<Booking> getTicketDetails(String userName);
 
     void removeUserFromTrain(String userName);
 

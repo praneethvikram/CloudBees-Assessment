@@ -24,9 +24,9 @@ public class BookingsServiceImpl implements BookingsService {
     public AllocationService allocationService;
 
     @Override
-    public Bookings createTicket(Bookings bookings, String userName) {
+    public Booking createTicket(Booking booking, String userName) {
         User user = userRepository.findById(userName).orElseThrow(() -> new RuntimeException("User not found with username " + userName));
-        Train train = trainRepository.findById(bookings.getTrainNumber()).orElseThrow(() -> new RuntimeException("Train not found with train number " + bookings.getTrainNumber()));
+        Train train = trainRepository.findById(booking.getTrainNumber()).orElseThrow(() -> new RuntimeException("Train not found with train number " + booking.getTrainNumber()));
         Section availableSection = null;
         Seat availableSeat = null;
         for (Section section : train.getSections()) {
@@ -45,26 +45,26 @@ public class BookingsServiceImpl implements BookingsService {
         availableSeat.setAllocated(true);
         seatRepository.save(availableSeat);
 
-        bookings.setUser(user);
-        bookings.setSeat(availableSeat);
-        bookings.setSectionName(availableSection.getName());
+        booking.setUser(user);
+        booking.setSeat(availableSeat);
+        booking.setSectionName(availableSection.getName());
 
-        return bookingsRepository.save(bookings);
+        return bookingsRepository.save(booking);
     }
 
     @Override
-    public List<Bookings> getAllBookings() {
+    public List<Booking> getAllBookings() {
         return bookingsRepository.findAll();
     }
 
     @Override
-    public Bookings getTicketDetails(String userName) {
-        return bookingsRepository.findByUser_UserName(userName).stream().findFirst().orElse(null);
+    public List<Booking> getTicketDetails(String userName) {
+        return bookingsRepository.findByUser_UserName(userName);
     }
 
     @Override
     public void removeUserFromTrain(String userName) {
-        Bookings ticket = bookingsRepository.findByUser_UserName(userName).stream().findFirst().orElse(null);
+        Booking ticket = bookingsRepository.findByUser_UserName(userName).stream().findFirst().orElse(null);
         if (ticket != null) {
             // Free the seat and remove the ticket
             Seat seat = ticket.getSeat();
@@ -75,7 +75,7 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     public void modifyUserSeat(String userName, Long trainId, String newSectionName) {
-        Bookings ticket = bookingsRepository.findByUser_UserName(userName).stream().findFirst().orElse(null);
+        Booking ticket = bookingsRepository.findByUser_UserName(userName).stream().findFirst().orElse(null);
         if (ticket != null) {
             Section newSection = sectionRepository.findByTrain_TrainNumberAndName(trainId, newSectionName).orElseThrow(() -> new RuntimeException("no section found"));
             Seat newSeat = seatRepository.findBySection_SectionIdAndIsAllocated(newSection.getSectionId(), false)

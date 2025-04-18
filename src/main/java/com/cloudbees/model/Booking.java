@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Booking")
-public class Bookings {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pnrNumber;

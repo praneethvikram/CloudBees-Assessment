@@ -1,6 +1,6 @@
 package com.cloudbees.service;
 
-import com.cloudbees.model.Bookings;
+import com.cloudbees.model.Booking;
 
 import java.util.Date;
 
@@ -9,5 +9,5 @@ public interface AllocationService {
 
     void deleteUser(long trainNumber, String userName);
 
-    Bookings updateSeat(long trainNumber, String userName, String section, int seatId);
+    Booking updateSeat(long trainNumber, String userName, String section, int seatId);
 }

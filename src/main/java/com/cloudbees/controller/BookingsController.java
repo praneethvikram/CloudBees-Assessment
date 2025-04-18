@@ -1,7 +1,7 @@
 package com.cloudbees.controller;
 
 import com.cloudbees.dto.BookingsRequest;
-import com.cloudbees.model.Bookings;
+import com.cloudbees.model.Booking;
 import com.cloudbees.service.BookingsService;
 import com.cloudbees.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +18,19 @@ public class BookingsController {
     public BookingsService bookingsService;
 
     @PostMapping("/createBooking")
-    public ResponseEntity<Bookings> bookTicket(@RequestBody BookingsRequest bookingsRequest) {
-        Bookings bookings = bookingsService.createTicket(MapperUtil.getBooking(bookingsRequest), bookingsRequest.getUserName());
-        return new ResponseEntity<>(bookings, HttpStatus.CREATED);
+    public ResponseEntity<Booking> bookTicket(@RequestBody BookingsRequest bookingsRequest) {
+        Booking booking = bookingsService.createTicket(MapperUtil.getBooking(bookingsRequest), bookingsRequest.getUserName());
+        return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
 
     @GetMapping("/details/{userName}")
-    public ResponseEntity<Bookings> getTicketDetails(@PathVariable String userName) {
-        Bookings ticket = bookingsService.getTicketDetails(userName);
+    public ResponseEntity<List<Booking>> getTicketDetails(@PathVariable String userName) {
+        List<Booking> ticket = bookingsService.getTicketDetails(userName);
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Bookings>> getAllBookings() {
+    public ResponseEntity<List<Booking>> getAllBookings() {
         return new ResponseEntity<>(bookingsService.getAllBookings(), HttpStatus.OK);
     }
 

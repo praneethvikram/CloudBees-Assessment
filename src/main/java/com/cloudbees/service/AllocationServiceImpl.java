@@ -1,6 +1,6 @@
 package com.cloudbees.service;
 
-import com.cloudbees.model.Bookings;
+import com.cloudbees.model.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class AllocationServiceImpl implements AllocationService {
     }
 
     @Override
-    public Bookings updateSeat(long trainNumber, String userName, String section, int seatId) {
+    public Booking updateSeat(long trainNumber, String userName, String section, int seatId) {
         return null;
     }
 }

@@ -11,6 +11,15 @@ public class BookingsRequest {
     private String userName;
     private Date date;
 
+    public BookingsRequest(String source, long trainNumber, double price, String destination, Date date, String userName) {
+        this.source = source;
+        this.trainNumber = trainNumber;
+        this.price = price;
+        this.destination = destination;
+        this.date = date;
+        this.userName = userName;
+    }
+
     public String getSource() {
         return source;
     }
