@@ -1,6 +1,9 @@
 package com.cloudbees.controller;
 
 import com.cloudbees.dto.BookingsRequest;
+import com.cloudbees.exceptions.BookingNotFoundException;
+import com.cloudbees.exceptions.SeatNotFoundException;
+import com.cloudbees.exceptions.SectionNotFoundException;
 import com.cloudbees.model.Booking;
 import com.cloudbees.service.BookingsService;
 import com.cloudbees.util.MapperUtil;
@@ -9,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,14 +39,14 @@ public class BookingsController {
     }
 
     @DeleteMapping("/remove/{userName}")
-    public ResponseEntity<Void> removeUser(@PathVariable String userName) {
+    public ResponseEntity<Void> removeUser(@PathVariable String userName) throws BookingNotFoundException {
         bookingsService.removeUserFromTrain(userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/modify-seat/{userName}")
-    public ResponseEntity<Void> modifyUserSeat(@PathVariable String userName, @RequestParam Long trainId, @RequestParam String newSectionName) {
-        bookingsService.modifyUserSeat(userName, trainId, newSectionName);
+    @PutMapping("/modify-seat/{userName}/{travelDate}")
+    public ResponseEntity<Void> modifyUserSeat(@PathVariable String userName, @RequestParam Long trainId, @RequestParam String newSectionName,@PathVariable Date travelDate) throws BookingNotFoundException, SectionNotFoundException, SeatNotFoundException {
+        bookingsService.modifyUserSeat(userName, trainId, newSectionName, travelDate);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

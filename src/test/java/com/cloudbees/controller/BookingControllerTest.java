@@ -1,6 +1,9 @@
 package com.cloudbees.controller;
 
 import com.cloudbees.dto.BookingsRequest;
+import com.cloudbees.exceptions.BookingNotFoundException;
+import com.cloudbees.exceptions.SeatNotFoundException;
+import com.cloudbees.exceptions.SectionNotFoundException;
 import com.cloudbees.model.Booking;
 import com.cloudbees.service.BookingsService;
 import org.junit.jupiter.api.Test;
@@ -59,7 +62,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void testDeleteBooking() {
+    public void testDeleteBooking() throws BookingNotFoundException {
         doNothing().when(bookingService).removeUserFromTrain("aa");
 
         ResponseEntity<Void> response = bookingController.removeUser("aa");
@@ -68,13 +71,13 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void testUpdateSeat() {
+    public void testUpdateSeat() throws BookingNotFoundException, SectionNotFoundException, SeatNotFoundException {
         Booking b = new Booking();
         b.setPnrNumber(1L);
+        Date date = Date.from(Instant.now());
+        doNothing().when(bookingService).modifyUserSeat("aa", 11L, "A", date);
 
-        doNothing().when(bookingService).modifyUserSeat("aa", 11L, "A");
-
-        ResponseEntity<Void> response = bookingController.modifyUserSeat("aa", 11L, "A");
+        ResponseEntity<Void> response = bookingController.modifyUserSeat("aa", 11L, "A", date);
 
         assertEquals(204, response.getStatusCodeValue());
     }

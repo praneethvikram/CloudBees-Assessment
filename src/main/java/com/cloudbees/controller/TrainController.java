@@ -1,5 +1,6 @@
 package com.cloudbees.controller;
 
+import com.cloudbees.exceptions.SectionNotFoundException;
 import com.cloudbees.model.Seat;
 import com.cloudbees.model.Train;
 import com.cloudbees.service.TrainService;
@@ -25,7 +26,7 @@ public class TrainController {
     }
 
     @GetMapping("/seats/{trainId}/{sectionName}")
-    public ResponseEntity<List<Seat>> getAvailableSeats(@PathVariable Long trainId, @PathVariable String sectionName) {
+    public ResponseEntity<List<Seat>> getAvailableSeats(@PathVariable Long trainId, @PathVariable String sectionName) throws SectionNotFoundException {
         List<Seat> seats = trainService.getAvailableSeats(trainId, sectionName);
         return new ResponseEntity<>(seats, HttpStatus.OK);
     }

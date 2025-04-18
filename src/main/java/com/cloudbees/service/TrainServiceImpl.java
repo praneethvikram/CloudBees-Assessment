@@ -1,5 +1,6 @@
 package com.cloudbees.service;
 
+import com.cloudbees.exceptions.SectionNotFoundException;
 import com.cloudbees.model.Seat;
 import com.cloudbees.model.Section;
 import com.cloudbees.model.Train;
@@ -25,8 +26,8 @@ public class TrainServiceImpl implements TrainService {
         return trainRepository.findAll();
     }
 
-    public List<Seat> getAvailableSeats(Long trainId, String sectionName) {
-        Section section = sectionRepository.findByTrain_TrainNumberAndName(trainId, sectionName).orElseThrow(() -> new RuntimeException("No section found"));
+    public List<Seat> getAvailableSeats(Long trainId, String sectionName) throws SectionNotFoundException {
+        Section section = sectionRepository.findByTrain_TrainNumberAndName(trainId, sectionName).orElseThrow(() -> new SectionNotFoundException("No section found with name" + sectionName));
         return seatRepository.findBySection_SectionIdAndIsAllocated(section.getSectionId(), false);
     }
 }
