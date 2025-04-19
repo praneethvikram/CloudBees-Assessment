@@ -1,5 +1,6 @@
 package com.cloudbees.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Train {
     private long trainNumber;
     private String trainName;
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Section> sections = new ArrayList<>();
     private String source;
     private String destination;

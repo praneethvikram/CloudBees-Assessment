@@ -1,5 +1,6 @@
 package com.cloudbees.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ public class Booking {
     private String start;
     private String destination;
     private double fare;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date travelDate;
     private String sectionName;
 

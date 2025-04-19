@@ -40,4 +40,16 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse("TRAIN_NOT_FOUND", ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(NoSeatsAvailableException.class)
+    public ResponseEntity<ErrorResponse> handleNoSeatAvailable(NoSeatsAvailableException ex) {
+        ErrorResponse error = new ErrorResponse("NO_SEAT_AVAILABLE", ex.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ManyBookingsFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoSeatAvailable(ManyBookingsFoundException ex) {
+        ErrorResponse error = new ErrorResponse("MANY_BOOKINGS_FOUND", ex.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }

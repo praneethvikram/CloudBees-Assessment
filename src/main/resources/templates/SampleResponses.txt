@@ -1,0 +1,133 @@
+Create booking response :
+
+{
+    "pnrNumber": 1,
+    "user": {
+        "userName": "aa",
+        "firstName": "Al",
+        "lastName": "Sm",
+        "email": "aa@ex.com",
+        "address": "aabb",
+        "phoneNumber": 123456
+    },
+    "seat": {
+        "id": 11,
+        "seatNumber": "A1",
+        "allocated": true
+    },
+    "trainNumber": 2,
+    "start": "A",
+    "destination": "B",
+    "fare": 12.5,
+    "travelDate": "2025-01-01T00:00:00.000+00:00",
+    "sectionName": "A"
+}
+
+Bookings for a user response :
+
+[
+    {
+        "pnrNumber": 1,
+        "user": {
+            "userName": "aa",
+            "firstName": "Al",
+            "lastName": "Sm",
+            "email": "aa@ex.com",
+            "address": "aabb",
+            "phoneNumber": 123456
+        },
+        "seat": {
+            "id": 11,
+            "seatNumber": "A1",
+            "allocated": true
+        },
+        "trainNumber": 2,
+        "start": "A",
+        "destination": "B",
+        "fare": 12.5,
+        "travelDate": "2025-01-01T00:00:00.000+00:00",
+        "sectionName": "A"
+    },
+    {
+        "pnrNumber": 11102,
+        "user": {
+            "userName": "aa",
+            "firstName": "Al",
+            "lastName": "Sm",
+            "email": "aa@ex.com",
+            "address": "aabb",
+            "phoneNumber": 123456
+        },
+        "seat": {
+            "id": 1,
+            "seatNumber": "A1",
+            "allocated": false
+        },
+        "trainNumber": 1,
+        "start": "LD",
+        "destination": "FR",
+        "fare": 20.0,
+        "travelDate": "2025-04-17T18:30:00.000+00:00",
+        "sectionName": "A"
+    }
+]
+
+Get allocated seats per train number and section response
+
+[
+    {
+        "seat": {
+            "id": 1,
+            "seatNumber": "A1",
+            "allocated": true
+        },
+        "user": {
+            "userName": "aa",
+            "firstName": "Al",
+            "lastName": "Sm",
+            "email": "aa@ex.com",
+            "address": "aabb",
+            "phoneNumber": 123456
+        }
+    },
+    {
+        "seat": {
+            "id": 2,
+            "seatNumber": "A2",
+            "allocated": true
+        },
+        "user": {
+            "userName": "aa",
+            "firstName": "Al",
+            "lastName": "Sm",
+            "email": "aa@ex.com",
+            "address": "aabb",
+            "phoneNumber": 123456
+        }
+    }
+]
+
+Modify seats for the user response :
+
+{
+    "pnrNumber": 1,
+    "user": {
+        "userName": "cc",
+        "firstName": "Ca",
+        "lastName": "Wi",
+        "email": "cc@ex.com",
+        "address": "sd 123",
+        "phoneNumber": 342495
+    },
+    "seat": {
+        "id": 7,
+        "seatNumber": "B2",
+        "allocated": true
+    },
+    "trainNumber": 1,
+    "start": "A",
+    "destination": "B",
+    "fare": 12.5,
+    "travelDate": "2025-01-01",
+    "sectionName": "B"
+}

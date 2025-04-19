@@ -1,0 +1,36 @@
+Create a booking :
+
+URL : localhost:8080/bookings/createBooking
+
+{
+    "source": "A",
+    "user": {
+        "firstName":"aa",
+        "lastName": "aaa",
+        "userName": "aa"
+    },
+    "destination": "B",
+    "price": 12.50,
+    "date":"2025-01-01",
+    "trainNumber": 2
+}
+
+Bookings for a user :
+
+URL :  localhost:8080/bookings/details/aa
+
+
+List of users and their seats per train number and section :
+
+URL : localhost:8080/train/bookedSeats/1/A
+
+Remove user from booking :
+
+URL : localhost:8080/bookings/remove/aa/1
+
+
+Modify seat for the user :
+
+URL : localhost:8080/bookings/modify-seat/cc/1?newSectionName=B&date=2025-01-01
+
+

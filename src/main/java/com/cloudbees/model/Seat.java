@@ -1,5 +1,6 @@
 package com.cloudbees.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Seat {
     private boolean isAllocated = false;
     @ManyToOne
     @JoinColumn(name = "section_id")
+    @JsonBackReference
     private Section section;
 
 

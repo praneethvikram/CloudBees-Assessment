@@ -1,6 +1,9 @@
 package com.cloudbees.service;
 
 import com.cloudbees.dto.BookingsRequest;
+import com.cloudbees.exceptions.NoSeatsAvailableException;
+import com.cloudbees.exceptions.TrainNotFoundException;
+import com.cloudbees.exceptions.UserNotFoundException;
 import com.cloudbees.model.*;
 import com.cloudbees.repository.*;
 import com.cloudbees.util.MapperUtil;
@@ -35,26 +38,25 @@ public class BookingServiceTest {
     private SeatRepository seatRepository;
 
     @Mock
-    private SectionRepository sectionRepository;
-
-    @Mock
     private UserRepository userRepository;
 
     @Mock
     private BookingsRepository trainTicketRepository;
 
     @Test
-    public void testPurchaseTicket_Success() {
+    public void testPurchaseTicket_Success() throws UserNotFoundException, TrainNotFoundException, NoSeatsAvailableException {
         // Arrange
         String userName = "aa";
-        Long trainNumber = 1L;
+        long trainNumber = 1L;
         String from = "LD";
         String to = "FR";
-        Booking booking = MapperUtil.getBooking(new BookingsRequest(from, trainNumber, 20.00, to, Date.from(Instant.now()), "aa"));
-
-
         User user = new User();
         user.setUserName(userName);
+
+        Booking booking = MapperUtil.getBooking(new BookingsRequest(from, trainNumber, 20.00, to, Date.from(Instant.now()), user));
+
+
+
 
         Train train = new Train();
         train.setTrainNumber(trainNumber);
@@ -89,7 +91,7 @@ public class BookingServiceTest {
     public void testPurchaseTicket_NoAvailableSeats_ThrowsException() {
         // Arrange
         String userName = "aa";
-        Long trainNumber = 1L;
+        long trainNumber = 1L;
 
         User user = new User();
         user.setUserName(userName);
@@ -104,7 +106,7 @@ public class BookingServiceTest {
         section.setTrain(train);
 
         train.setSections(List.of(section));
-        Booking booking = MapperUtil.getBooking(new BookingsRequest("from", trainNumber, 20.00, "to", Date.from(Instant.now()), "aa"));
+        Booking booking = MapperUtil.getBooking(new BookingsRequest("from", trainNumber, 20.00, "to", Date.from(Instant.now()), user));
 
         when(userRepository.findById(userName)).thenReturn(Optional.of(user));
         when(trainRepository.findById(trainNumber)).thenReturn(Optional.of(train));

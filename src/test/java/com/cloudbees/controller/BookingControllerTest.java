@@ -1,10 +1,9 @@
 package com.cloudbees.controller;
 
 import com.cloudbees.dto.BookingsRequest;
-import com.cloudbees.exceptions.BookingNotFoundException;
-import com.cloudbees.exceptions.SeatNotFoundException;
-import com.cloudbees.exceptions.SectionNotFoundException;
+import com.cloudbees.exceptions.*;
 import com.cloudbees.model.Booking;
+import com.cloudbees.model.User;
 import com.cloudbees.service.BookingsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,12 +32,14 @@ public class BookingControllerTest {
     private BookingsService bookingService;
 
     @Test
-    public void testPurchaseTicket() {
+    public void testPurchaseTicket() throws UserNotFoundException, TrainNotFoundException, NoSeatsAvailableException {
         Booking mockBooking = new Booking();
         mockBooking.setPnrNumber(1L);
         mockBooking.setStart("LD");
         mockBooking.setDestination("FR");
-        BookingsRequest request = new BookingsRequest("LD", 1L, 20.0, "FR", Date.from(Instant.now()), "aa");
+        User user = new User();
+        user.setUserName("aa");
+        BookingsRequest request = new BookingsRequest("LD", 1L, 20.0, "FR", Date.from(Instant.now()), user);
         when(bookingService.createTicket(any(Booking.class), eq("aa")))
                 .thenReturn(mockBooking);
 
@@ -63,21 +64,21 @@ public class BookingControllerTest {
 
     @Test
     public void testDeleteBooking() throws BookingNotFoundException {
-        doNothing().when(bookingService).removeUserFromTrain("aa");
+        when(bookingService.removeUserFromTrain("aa", 1L)).thenReturn(true);
 
-        ResponseEntity<Void> response = bookingController.removeUser("aa");
+        ResponseEntity<String> response = bookingController.removeUserBooking("aa", 1L);
 
-        assertEquals(204, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCodeValue());
     }
 
     @Test
-    public void testUpdateSeat() throws BookingNotFoundException, SectionNotFoundException, SeatNotFoundException {
+    public void testUpdateSeat() throws BookingNotFoundException, SectionNotFoundException, SeatNotFoundException, ManyBookingsFoundException {
         Booking b = new Booking();
         b.setPnrNumber(1L);
         Date date = Date.from(Instant.now());
         doNothing().when(bookingService).modifyUserSeat("aa", 11L, "A", date);
 
-        ResponseEntity<Void> response = bookingController.modifyUserSeat("aa", 11L, "A", date);
+        ResponseEntity<Booking> response = bookingController.modifyUserSeat("aa", 11L, "A", date);
 
         assertEquals(204, response.getStatusCodeValue());
     }
