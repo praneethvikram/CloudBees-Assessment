@@ -1,5 +1,7 @@
 package com.cloudbees.dto;
 
+import com.cloudbees.model.User;
+
 import java.util.Date;
 
 public class BookingsRequest {
@@ -8,16 +10,16 @@ public class BookingsRequest {
     private long trainNumber;
     private double price;
     private String destination;
-    private String userName;
+    private User user;
     private Date date;
 
-    public BookingsRequest(String source, long trainNumber, double price, String destination, Date date, String userName) {
+    public BookingsRequest(String source, long trainNumber, double price, String destination, Date date, User user) {
         this.source = source;
         this.trainNumber = trainNumber;
         this.price = price;
         this.destination = destination;
         this.date = date;
-        this.userName = userName;
+        this.user = user;
     }
 
     public String getSource() {
@@ -52,12 +54,12 @@ public class BookingsRequest {
         this.destination = destination;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDate() {

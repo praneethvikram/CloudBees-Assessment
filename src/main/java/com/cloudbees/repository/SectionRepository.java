@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface SectionRepository extends JpaRepository<Section, Long> {
-    Optional<Section> findByTrain_TrainNumberAndName(Long trainNumber, String name);
+    Optional<Section> findByTrain_TrainNumberAndName(long trainNumber, String name);
 
 }

@@ -1,5 +1,7 @@
 package com.cloudbees.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,9 +13,11 @@ public class Section {
     private Long sectionId;
     private String name;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "train_number")
     private Train train;
     @OneToMany(mappedBy = "section")
+    @JsonManagedReference
     private List<Seat> seats;
 
     public String getName() {
